@@ -14,7 +14,7 @@
 
 With Composer, add this line to your *require* section :
 
-	"phelium/recaptcha": "1.0"
+	"phelium/recaptcha": "dev-master"
 
 Then run `composer update`.
 

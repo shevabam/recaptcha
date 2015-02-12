@@ -139,6 +139,7 @@ class reCAPTCHA
     /**
      * Set theme
      *
+     * @param string $theme (see https://developers.google.com/recaptcha/docs/display#config)
      * @return object
      */
     public function setTheme($theme = 'light')
@@ -154,6 +155,7 @@ class reCAPTCHA
     /**
      * Set type
      *
+     * @param  string $type (see https://developers.google.com/recaptcha/docs/display#config)
      * @return object
      */
     public function setType($type = 'image')
@@ -167,6 +169,7 @@ class reCAPTCHA
     /**
      * Set language
      *
+     * @param  string $language (see https://developers.google.com/recaptcha/docs/language)
      * @return object
      */
     public function setLanguage($language)
