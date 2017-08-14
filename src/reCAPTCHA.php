@@ -79,6 +79,14 @@ class reCAPTCHA
      */
     protected $language = null;
 
+    /**
+     * Captcha size. Default : normal
+     * 
+     * @var string
+     * @see https://developers.google.com/recaptcha/docs/display#render_param
+     */
+    protected $size = null;
+
 
 
     /**
@@ -180,6 +188,19 @@ class reCAPTCHA
     }
 
     /**
+     * Set size
+     *
+     * @param  string $size (see https://developers.google.com/recaptcha/docs/display#render_param)
+     * @return object
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
      * Generate the JS code of the captcha
      * 
      * @return string
@@ -209,6 +230,9 @@ class reCAPTCHA
 
             if (!is_null($this->type))
                 $data .= ' data-type="'.$this->type.'"';
+
+            if (!is_null($this->size))
+                $data .= ' data-size="'.$this->size.'"';
 
             return '<div class="g-recaptcha" '.$data.'></div>';
         }
