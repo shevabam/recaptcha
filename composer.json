@@ -12,7 +12,7 @@
         "issues": "https://github.com/shevabam/recaptcha/issues",
         "source": "https://github.com/shevabam/recaptcha/tree/master"
     },
-    "license": "GNU GPL 2.0",
+    "license": "GPL-2.0-only",
     "version": "1.0.3",
     "require": {
         "php": ">=5.3.0"
