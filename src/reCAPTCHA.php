@@ -79,15 +79,20 @@ class reCAPTCHA
      */
     protected $language = null;
 
-    /**
+    /**  
+     * CURL timeout (in seconds) to verify response
+     *
+     * @var int
+     */
+    private $verifyTimeout = 1;
+  
+     /**
      * Captcha size. Default : normal
      * 
      * @var string
      * @see https://developers.google.com/recaptcha/docs/display#render_param
      */
     protected $size = null;
-
-
 
     /**
      * Initialize site and secret keys
@@ -188,6 +193,19 @@ class reCAPTCHA
     }
 
     /**
+     * Set timeout
+     *
+     * @param  int $timeout
+     * @return object
+     */
+    public function setVerifyTimeout($timeout)
+    {
+        $this->verifyTimeout = $timeout;
+      
+        return $this;
+    }
+  
+    /**
      * Set size
      *
      * @param  string $size (see https://developers.google.com/recaptcha/docs/display#render_param)
@@ -265,7 +283,7 @@ class reCAPTCHA
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+            curl_setopt($curl, CURLOPT_TIMEOUT, $this->verifyTimeout);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             $response = curl_exec($curl);
         }
