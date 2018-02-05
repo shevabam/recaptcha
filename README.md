@@ -75,6 +75,12 @@ Several types are available : image (default) or audio.
 
 	$reCAPTCHA->setType('audio');
 
+### Size
+
+Two sizes are available : normal (default) or compact.
+
+	$reCAPTCHA->setType('compact');
+
 
 ## Full example
 
