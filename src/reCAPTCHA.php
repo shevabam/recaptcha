@@ -86,13 +86,21 @@ class reCAPTCHA
      */
     private $verifyTimeout = 1;
   
-     /**
+    /**
      * Captcha size. Default : normal
      * 
      * @var string
      * @see https://developers.google.com/recaptcha/docs/display#render_param
      */
     protected $size = null;
+
+    /**
+     * List of errors
+     * 
+     * @var array
+     */
+    protected $errorCodes = array();
+
 
     /**
      * Initialize site and secret keys
@@ -297,8 +305,82 @@ class reCAPTCHA
             return false;
         }
     
-        $json = json_decode($response);
+        $json = json_decode($response, true);
 
-        return $json->success;
+        if (isset($json['error-codes']))
+        {
+            $this->errorCodes = $json['error-codes'];
+        }
+
+        return $json['success'];
+    }
+
+    /**
+     * Returns the errors encountered
+     * 
+     * @return array Errors code and name
+     */
+    public function getErrorCodes()
+    {
+        $errors = array();
+
+        if (count($this->errorCodes) > 0)
+        {
+            foreach ($this->errorCodes as $error)
+            {
+                switch ($error)
+                {
+                    case 'timeout-or-duplicate':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'Timeout or duplicate.',
+                        );
+                    break;
+                    
+                    case 'missing-input-secret':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The secret parameter is missing.',
+                        );
+                    break;
+                    
+                    case 'invalid-input-secret':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The secret parameter is invalid or malformed.',
+                        );
+                    break;
+                    
+                    case 'missing-input-response':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The response parameter is missing.',
+                        );
+                    break;
+                    
+                    case 'invalid-input-response':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The response parameter is invalid or malformed.',
+                        );
+                    break;
+
+                    case 'bad-request':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The request is invalid or malformed.',
+                        );
+                    break;
+
+                    default:
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => $error,
+                        );
+                }
+            }
+        }
+
+        return $errors;
     }
 }

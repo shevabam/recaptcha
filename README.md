@@ -53,6 +53,12 @@ Checking the server side, in your form validation script :
 	{
 		// do whatever you want, the captcha is valid
 	}
+	else
+	{
+		// Show errors
+		var_dump($reCAPTCHA->getErrorCodes());
+	}
+
 
 ## Customization
 
