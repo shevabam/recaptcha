@@ -274,9 +274,13 @@ class reCAPTCHA
     {
         if (is_null($this->secretKey))
             throw new \Exception('You must set your secret key');
-           
-        if (empty($response))
+
+        if (empty($response)) {
+
+            $this->errorCodes = ['internal-empty-response'];
+
             return false;
+        }
 
         $params = array(
             'secret'   => $this->secretKey,
@@ -369,6 +373,13 @@ class reCAPTCHA
                         $errors[] = array(
                             'code' => $error,
                             'name' => 'The request is invalid or malformed.',
+                        );
+                    break;
+
+                    case 'internal-empty-response':
+                        $errors[] = array(
+                            'code' => $error,
+                            'name' => 'The recaptcha response is required.',
                         );
                     break;
 
