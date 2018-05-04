@@ -277,7 +277,7 @@ class reCAPTCHA
 
         if (empty($response)) {
 
-            $this->errorCodes = ['internal-empty-response'];
+            $this->errorCodes = array('internal-empty-response');
 
             return false;
         }
